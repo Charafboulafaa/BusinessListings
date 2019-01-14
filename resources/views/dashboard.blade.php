@@ -25,8 +25,16 @@
                             @foreach($listings as $listing)
                             <tr>
                                 <td>{{ $listing->name }}</td>
-                                <td><a class="btn btn-light btn-sm" href="/listings/{{$listing->id}}/edit">Edit</a></td>
-                                <td></td>
+                                <td>
+                                    <a class="btn btn-light btn-sm" href="/listings/{{$listing->id}}/edit">Edit</a>
+                                </td>
+                                <td>
+                                    <form action="{{ action('ListingsController@destroy', $listing->id) }}" method="POST" onSubmit="return confirm('are you sure ?')">
+                                        <input name="_method" type="hidden" value="DELETE">
+                                        <input name="_token" type="hidden" value="{{ csrf_token() }}">
+                                        <input class="btn btn-danger btn-sm" type="submit" value="Delete">
+                                    </form>
+                                </td>
                             </tr>
                             @endforeach
                         </table>
